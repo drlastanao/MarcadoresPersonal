@@ -3,22 +3,26 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using System.Windows.Forms;
-
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace MarcadoresPersonal
 {
     public partial class Principal : Form
     {
-        private NodoCentral n = new NodoCentral();
+        private  NodoCentral n = new NodoCentral();
 
         public Principal()
         {
             InitializeComponent();
+
 
 
             //borrar luego
@@ -52,6 +56,13 @@ namespace MarcadoresPersonal
             n.Paginas.Add(p1);
             n.Paginas.Add(p2);
 
+
+
+
+            string texto;
+
+
+            
 
 
         }
@@ -121,6 +132,15 @@ namespace MarcadoresPersonal
             }
 
             checkedListBox1.Items.AddRange(cat.ToArray());
+
+
+        }
+
+        private void Principal_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
+      
+
 
 
         }
