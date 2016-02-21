@@ -12,6 +12,8 @@ using System.Web.Script.Serialization;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
+using Microsoft.VisualBasic;
+
 
 namespace MarcadoresPersonal
 {
@@ -135,6 +137,13 @@ namespace MarcadoresPersonal
 
         private void Principal_Load(object sender, EventArgs e)
         {
+            ActualizarCheckBoxList();
+
+        }
+
+        private void ActualizarCheckBoxList()
+        {
+            checkedListBox1.Items.Clear();
             List<String> cat = new List<String>();
             foreach (var item in nodo.Categorias)
             {
@@ -142,8 +151,6 @@ namespace MarcadoresPersonal
             }
 
             checkedListBox1.Items.AddRange(cat.ToArray());
-
-
         }
 
         private void Principal_FormClosing(object sender, FormClosingEventArgs e)
@@ -161,6 +168,47 @@ namespace MarcadoresPersonal
 
         private void button1_Click(object sender, EventArgs e)
         {
+            string resultado = Interaction.InputBox("Introduca url | descripción", "Introducir Pagina", "");
+
+            if (resultado.Split('|').Length > 1)
+            {
+                Pagina c = new Pagina();
+                c.Url = resultado.Split('|')[0];
+                c.Descripcion = resultado.Split('|')[1];
+
+
+                foreach (var item in checkedListBox1.CheckedIndices)
+                    c.categorias.Add(nodo.Categorias[Convert.ToInt16(item)]);
+                
+
+                nodo.Paginas.Add(c);
+
+
+            }
+            else
+                MessageBox.Show("Formato no válido!");
+
+
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            string resultado= Interaction.InputBox("Introduca categoria | descripción", "Introducir Categoria", "");
+
+            if (resultado.Split('|').Length > 1)
+            {
+                Categoria c = new Categoria();
+                c.nombre = resultado.Split('|')[0];
+                c.descripcion = resultado.Split('|')[1];
+
+                nodo.Categorias.Add(c);
+
+
+                ActualizarCheckBoxList();
+            }
+            else
+                MessageBox.Show("Formato no válido!");
 
         }
     }
