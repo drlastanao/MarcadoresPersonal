@@ -96,7 +96,7 @@ namespace MarcadoresPersonal
 
                 if (texto!="")
                 {
-                    if (item.Url.Contains(texto) == false && item.Descripcion.Contains(texto) == false)
+                    if (Contains(item.Url,texto,StringComparison.CurrentCultureIgnoreCase) == false && Contains(item.Descripcion,texto,StringComparison.InvariantCultureIgnoreCase) == false)
                         seleccionar = false;
                  }
 
@@ -129,6 +129,13 @@ namespace MarcadoresPersonal
             
                 
                     }
+
+
+        public  bool Contains( string source, string toCheck, StringComparison comp)
+        {
+            return source != null && toCheck != null && source.IndexOf(toCheck, comp) >= 0;
+        }
+
 
         private void Principal_Load(object sender, EventArgs e)
         {

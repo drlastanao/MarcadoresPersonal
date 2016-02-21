@@ -66,7 +66,7 @@
             this.button1.Location = new System.Drawing.Point(175, 204);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(242, 23);
-            this.button1.TabIndex = 1;
+            this.button1.TabIndex = 5;
             this.button1.Text = "Añadir con las categorias seleccionadas";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -76,7 +76,7 @@
             this.button3.Location = new System.Drawing.Point(26, 142);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(93, 23);
-            this.button3.TabIndex = 5;
+            this.button3.TabIndex = 2;
             this.button3.Text = "Añadir Categoria";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
@@ -86,7 +86,7 @@
             this.button2.Location = new System.Drawing.Point(26, 204);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 2;
+            this.button2.TabIndex = 3;
             this.button2.Text = "Buscar";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
@@ -97,7 +97,7 @@
             this.checkedListBox1.Location = new System.Drawing.Point(154, 71);
             this.checkedListBox1.Name = "checkedListBox1";
             this.checkedListBox1.Size = new System.Drawing.Size(279, 124);
-            this.checkedListBox1.TabIndex = 4;
+            this.checkedListBox1.TabIndex = 1;
             // 
             // label3
             // 
@@ -159,6 +159,7 @@
             // 
             // Principal
             // 
+            this.AcceptButton = this.button2;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(485, 548);
