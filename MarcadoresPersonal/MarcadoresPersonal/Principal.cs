@@ -1,19 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Script.Serialization;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
 using Microsoft.VisualBasic;
-
+using System.Diagnostics;
 
 namespace MarcadoresPersonal
 {
@@ -59,19 +51,22 @@ namespace MarcadoresPersonal
             //nodo.Paginas.Add(p2);
 
 
-
+            XmlTextReader xmlReader=new XmlTextReader(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\" + "Nodos.xml"); ;
 
             try
             {
-                XmlTextReader xmlReader =new XmlTextReader(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\" + "Nodos.xml");
                 XmlSerializer objreader = new XmlSerializer(nodo.GetType());
                 nodo = (NodoCentral)objreader.Deserialize(xmlReader);
-                xmlReader.Close();
+     
 
              }
             catch (Exception e)
             {
 
+            }
+            finally
+            {
+                xmlReader.Close();
             }
 
 
@@ -210,6 +205,16 @@ namespace MarcadoresPersonal
             else
                 MessageBox.Show("Formato no válido!");
 
+        }
+
+        private void dataGridView1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex>-1)
+            {
+                Process.Start(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString());
+
+
+            }
         }
     }
 }
