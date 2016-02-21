@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace MarcadoresPersonal
 {
     [Serializable()]
-    class Categoria 
+    public class Categoria 
     {
         public String nombre { get; set; }
         public String descripcion { get; set; }

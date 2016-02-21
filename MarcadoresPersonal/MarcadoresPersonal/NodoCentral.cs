@@ -9,7 +9,7 @@ namespace MarcadoresPersonal
 {
     [Serializable()]
 
-    class NodoCentral 
+    public class NodoCentral 
     {
 
         public List<Categoria> Categorias { get; set; }

@@ -17,7 +17,7 @@ namespace MarcadoresPersonal
 {
     public partial class Principal : Form
     {
-        private  NodoCentral n = new NodoCentral();
+        public   NodoCentral nodo = new NodoCentral();
 
         public Principal()
         {
@@ -26,43 +26,53 @@ namespace MarcadoresPersonal
 
 
             //borrar luego
-            Categoria c1 = new Categoria();
-            c1.nombre = "buscadores";
-            c1.descripcion = "buscadores de páginas";
+            //Categoria c1 = new Categoria();
+            //c1.nombre = "buscadores";
+            //c1.descripcion = "buscadores de páginas";
 
-            Categoria c2 = new Categoria();
-            c2.nombre = "programación";
-            c2.descripcion = "páginas de programación";
-
-
-            Pagina p1 = new Pagina();
-            p1.Url = "www.google.es";
-            p1.categorias.Add(c1);
-            p1.Descripcion = "el mejor buscador";
+            //Categoria c2 = new Categoria();
+            //c2.nombre = "programación";
+            //c2.descripcion = "páginas de programación";
 
 
-            Pagina p2 = new Pagina();
-            p2.Url = "www.udacity.com";
-            p2.categorias.Add(c2);
-            p2.Descripcion = "buenos cursos";
+            //Pagina p1 = new Pagina();
+            //p1.Url = "www.google.es";
+            //p1.categorias.Add(c1);
+            //p1.Descripcion = "el mejor buscador";
 
 
-
-
-
-            n.Categorias.Add(c1);
-            n.Categorias.Add(c2);
-
-            n.Paginas.Add(p1);
-            n.Paginas.Add(p2);
+            //Pagina p2 = new Pagina();
+            //p2.Url = "www.udacity.com";
+            //p2.categorias.Add(c2);
+            //p2.Descripcion = "buenos cursos";
 
 
 
 
-            string texto;
+
+            //nodo.Categorias.Add(c1);
+            //nodo.Categorias.Add(c2);
+
+            //nodo.Paginas.Add(p1);
+            //nodo.Paginas.Add(p2);
 
 
-            
+
+
+            try
+            {
+                XmlTextReader xmlReader =new XmlTextReader(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\" + "Nodos.xml");
+                XmlSerializer objreader = new XmlSerializer(nodo.GetType());
+                nodo = (NodoCentral)objreader.Deserialize(xmlReader);
+                xmlReader.Close();
+
+             }
+            catch (Exception e)
+            {
+
+            }
+
+
 
 
         }
@@ -82,7 +92,7 @@ namespace MarcadoresPersonal
             }
 
 
-            foreach (var item in n.Paginas)
+            foreach (var item in nodo.Paginas)
             {
                 Boolean seleccionar = true;
                 String texto=textBox1.Text.Trim() ;
@@ -126,7 +136,7 @@ namespace MarcadoresPersonal
         private void Principal_Load(object sender, EventArgs e)
         {
             List<String> cat = new List<String>();
-            foreach (var item in n.Categorias)
+            foreach (var item in nodo.Categorias)
             {
                 cat.Add(item.nombre);
             }
@@ -139,9 +149,18 @@ namespace MarcadoresPersonal
         private void Principal_FormClosing(object sender, FormClosingEventArgs e)
         {
 
-      
+            XmlSerializer objWriter = new XmlSerializer(nodo.GetType());
+   StreamWriter objfile = new StreamWriter(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\" + "Nodos.xml");
+            objWriter.Serialize(objfile, nodo);
+   objfile.Close();
 
 
+
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
 
         }
     }

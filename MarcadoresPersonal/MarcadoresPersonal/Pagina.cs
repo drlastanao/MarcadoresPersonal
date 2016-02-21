@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace MarcadoresPersonal
 { 
     [Serializable()]
-    class Pagina 
+    public class Pagina 
     {
 
 
