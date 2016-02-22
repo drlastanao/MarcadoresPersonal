@@ -9,12 +9,13 @@ namespace MarcadoresPersonal
     {
 
         public List<Categoria> Categorias { get; set; }
-        public List<Pagina> Paginas { get; set; }
+        public List<Nodo> Paginas { get; set; }
+        public List<Nodo> Carpetas { get; set; }
 
         public NodoCentral()
         {
             Categorias = new List<Categoria>();
-            Paginas = new List<Pagina>();
+            Paginas = new List<Nodo>();
 
         }
 

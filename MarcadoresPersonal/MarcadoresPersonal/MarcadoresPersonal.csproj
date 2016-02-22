@@ -49,8 +49,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Categoria.cs" />
+    <Compile Include="GestionNodo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GestionNodo.Designer.cs">
+      <DependentUpon>GestionNodo.cs</DependentUpon>
+    </Compile>
     <Compile Include="NodoCentral.cs" />
-    <Compile Include="Pagina.cs" />
+    <Compile Include="Nodo.cs" />
     <Compile Include="Principal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -59,6 +65,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="GestionNodo.resx">
+      <DependentUpon>GestionNodo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Principal.resx">
       <DependentUpon>Principal.cs</DependentUpon>
     </EmbeddedResource>

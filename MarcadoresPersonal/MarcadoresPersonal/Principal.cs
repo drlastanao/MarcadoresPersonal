@@ -51,7 +51,7 @@ namespace MarcadoresPersonal
             //nodo.Paginas.Add(p2);
 
 
-            XmlTextReader xmlReader=new XmlTextReader(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\" + "Nodos.xml"); ;
+            XmlTextReader xmlReader=new XmlTextReader(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\OneDrive\\" + "Nodos.xml"); ;
 
             try
             {
@@ -76,7 +76,7 @@ namespace MarcadoresPersonal
 
         private void button2_Click(object sender, EventArgs e)
         {
-            List<Pagina> aux = new List<Pagina>();
+            List<Nodo> aux = new List<Nodo>();
 
 
             List<String> categoriasSeleccionadas = new List<String>();
@@ -96,7 +96,7 @@ namespace MarcadoresPersonal
 
                 if (texto!="")
                 {
-                    if (Contains(item.Url,texto,StringComparison.CurrentCultureIgnoreCase) == false && Contains(item.Descripcion,texto,StringComparison.InvariantCultureIgnoreCase) == false)
+                    if (Contains(item.Direccion,texto,StringComparison.CurrentCultureIgnoreCase) == false && Contains(item.Descripcion,texto,StringComparison.InvariantCultureIgnoreCase) == false)
                         seleccionar = false;
                  }
 
@@ -117,11 +117,61 @@ namespace MarcadoresPersonal
                 }
 
 
-                if (seleccionar)
+                if (texto!="")
+                foreach (var item3 in item.subnodos)
+                {
+                    if (Contains(item3, texto, StringComparison.CurrentCultureIgnoreCase) == true)
+                        seleccionar = true;
 
-                    aux.Add(item);                
+
+                }
+
+                if (seleccionar)
+                    aux.Add(item);
+     
+
             }
 
+            foreach (var item in nodo.Carpetas)
+            {
+                Boolean seleccionar = true;
+                String texto = textBox1.Text.Trim();
+
+                if (texto != "")
+                {
+                    if (Contains(item.Direccion, texto, StringComparison.CurrentCultureIgnoreCase) == false && Contains(item.Descripcion, texto, StringComparison.InvariantCultureIgnoreCase) == false)
+                        seleccionar = false;
+                }
+
+
+                if (categoriasSeleccionadas.Count > 0)
+                {
+                    Boolean alguna = false;
+
+                    foreach (var item2 in item.categorias)
+                    {
+                        if (categoriasSeleccionadas.Contains(item2.nombre))
+                            alguna = true;
+                    }
+
+                    if (alguna == false) seleccionar = false;
+
+
+                }
+
+
+                if (texto!="")
+                foreach (var item3 in item.subnodos)
+                {
+                    if (Contains(item3, texto, StringComparison.CurrentCultureIgnoreCase) == true)
+                        seleccionar = true;
+
+
+                }
+
+                if (seleccionar)
+                    aux.Add(item);
+            }
 
 
 
@@ -159,7 +209,7 @@ namespace MarcadoresPersonal
         {
 
             XmlSerializer objWriter = new XmlSerializer(nodo.GetType());
-   StreamWriter objfile = new StreamWriter(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\" + "Nodos.xml");
+            StreamWriter objfile = new StreamWriter(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\OneDrive\\" + "Nodos.xml");
             objWriter.Serialize(objfile, nodo);
    objfile.Close();
 
@@ -170,26 +220,32 @@ namespace MarcadoresPersonal
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string resultado = Interaction.InputBox("Introduca url | descripción", "Introducir Pagina", "");
+            //string resultado = Interaction.InputBox("Introduca url | descripción", "Introducir Pagina", "");
 
-            if (resultado.Split('|').Length > 1)
-            {
-                Pagina c = new Pagina();
-                c.Url = resultado.Split('|')[0];
-                c.Descripcion = resultado.Split('|')[1];
-
-
-                foreach (var item in checkedListBox1.CheckedIndices)
-                    c.categorias.Add(nodo.Categorias[Convert.ToInt16(item)]);
-                
-
-                nodo.Paginas.Add(c);
+            //if (resultado.Split('|').Length > 1)
+            //{
+            //    Nodo c = new Nodo();
+            //    c.Direccion = resultado.Split('|')[0];
+            //    c.Descripcion = resultado.Split('|')[1];
 
 
-            }
-            else
-                MessageBox.Show("Formato no válido!");
+            //    foreach (var item in checkedListBox1.CheckedIndices)
+            //        c.categorias.Add(nodo.Categorias[Convert.ToInt16(item)]);
 
+
+            //    nodo.Paginas.Add(c);
+
+
+            //}
+            //else
+            //    MessageBox.Show("Formato no válido!");
+
+            GestionNodo n = new GestionNodo();
+            n.Text = "Alta de Enlace";
+            n.tipo = "Enlace";
+            n.raiz = nodo;
+
+            n.Show();
 
 
         }
@@ -216,12 +272,109 @@ namespace MarcadoresPersonal
 
         private void dataGridView1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex>-1)
+            if (e.RowIndex > -1)
             {
                 Process.Start(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString());
 
 
             }
+          
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex > -1)
+            {
+                Process.Start(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString());
+
+
+            }
+
+
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            //string resultado = Interaction.InputBox("Introduca carpeta | descripción", "Introducir Carpeta", "");
+
+            //if (resultado.Split('|').Length > 1)
+            //{
+            //    Nodo c = new Nodo();
+            //    c.Direccion = resultado.Split('|')[0];
+            //    c.Descripcion = resultado.Split('|')[1];
+
+
+            //    foreach (var item in checkedListBox1.CheckedIndices)
+            //        c.categorias.Add(nodo.Categorias[Convert.ToInt16(item)]);
+
+
+            //    nodo.Carpetas.Add(c);
+
+
+            //}
+            //else
+            //    MessageBox.Show("Formato no válido!");
+
+            GestionNodo n = new GestionNodo();
+            n.Text = "Alta de Carpeta";
+            n.tipo="Carpeta";
+            n.raiz = nodo;
+
+
+            n.Show();
+
+
+
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        {
+
+            if (e.RowIndex > -1 && e.Button==MouseButtons.Right)
+            {
+
+
+                //abrir ventana
+
+                GestionNodo g = new GestionNodo();
+                g.Text = "Gestión de Nodo";
+                g.existente = true;
+                g.raiz = nodo;
+
+
+                string buscar = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
+
+                foreach (var item in nodo.Carpetas)
+                {
+                    if (item.Direccion == buscar)
+                        g.anterior = (Nodo)item;
+                }
+
+                if (g.anterior == null)
+                {
+                    foreach (var item in nodo.Paginas)
+                    {
+                        if (item.Direccion == buscar)
+                            g.anterior = (Nodo)item;
+                    }
+
+
+                }
+
+
+
+                g.Show();
+
+
+
+            }
+
         }
     }
 }
