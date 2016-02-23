@@ -12,6 +12,7 @@ namespace MarcadoresPersonal
     public partial class Principal : Form
     {
         public   NodoCentral nodo = new NodoCentral();
+        private bool cambios =false;
 
         public Principal()
         {
@@ -62,7 +63,7 @@ namespace MarcadoresPersonal
              }
             catch (Exception e)
             {
-
+                MessageBox.Show("Error al cargar fichero, ojo! al salir");
             }
             finally
             {
@@ -208,10 +209,13 @@ namespace MarcadoresPersonal
         private void Principal_FormClosing(object sender, FormClosingEventArgs e)
         {
 
-            XmlSerializer objWriter = new XmlSerializer(nodo.GetType());
-            StreamWriter objfile = new StreamWriter(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\OneDrive\\" + "Nodos.xml");
-            objWriter.Serialize(objfile, nodo);
-   objfile.Close();
+            if (cambios == true)
+            {
+                XmlSerializer objWriter = new XmlSerializer(nodo.GetType());
+                StreamWriter objfile = new StreamWriter(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\OneDrive\\" + "Nodos.xml");
+                objWriter.Serialize(objfile, nodo);
+                objfile.Close();
+            }
 
 
 
@@ -220,25 +224,6 @@ namespace MarcadoresPersonal
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //string resultado = Interaction.InputBox("Introduca url | descripción", "Introducir Pagina", "");
-
-            //if (resultado.Split('|').Length > 1)
-            //{
-            //    Nodo c = new Nodo();
-            //    c.Direccion = resultado.Split('|')[0];
-            //    c.Descripcion = resultado.Split('|')[1];
-
-
-            //    foreach (var item in checkedListBox1.CheckedIndices)
-            //        c.categorias.Add(nodo.Categorias[Convert.ToInt16(item)]);
-
-
-            //    nodo.Paginas.Add(c);
-
-
-            //}
-            //else
-            //    MessageBox.Show("Formato no válido!");
 
             GestionNodo n = new GestionNodo();
             n.Text = "Alta de Enlace";
@@ -246,6 +231,7 @@ namespace MarcadoresPersonal
             n.raiz = nodo;
 
             n.Show();
+            cambios = true;
 
 
         }
@@ -264,6 +250,7 @@ namespace MarcadoresPersonal
 
 
                 ActualizarCheckBoxList();
+                cambios = true;
             }
             else
                 MessageBox.Show("Formato no válido!");
@@ -296,25 +283,6 @@ namespace MarcadoresPersonal
 
         private void button4_Click(object sender, EventArgs e)
         {
-            //string resultado = Interaction.InputBox("Introduca carpeta | descripción", "Introducir Carpeta", "");
-
-            //if (resultado.Split('|').Length > 1)
-            //{
-            //    Nodo c = new Nodo();
-            //    c.Direccion = resultado.Split('|')[0];
-            //    c.Descripcion = resultado.Split('|')[1];
-
-
-            //    foreach (var item in checkedListBox1.CheckedIndices)
-            //        c.categorias.Add(nodo.Categorias[Convert.ToInt16(item)]);
-
-
-            //    nodo.Carpetas.Add(c);
-
-
-            //}
-            //else
-            //    MessageBox.Show("Formato no válido!");
 
             GestionNodo n = new GestionNodo();
             n.Text = "Alta de Carpeta";
@@ -323,6 +291,7 @@ namespace MarcadoresPersonal
 
 
             n.Show();
+            cambios = true;
 
 
 
